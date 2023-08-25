@@ -174,6 +174,12 @@ class ActorCritic(nn.Module):
     self._use_amp = (config.precision == 16)
     self.device = config.device
     
+    discrete = 'int' in act_spec.dtype.name
+    if self.cfg.actor.dist == 'auto':
+      self.cfg.actor.dist = 'onehot' if discrete else 'trunc_normal'
+    if self.cfg.actor_grad == 'auto':
+      self.cfg.actor_grad = 'reinforce' if discrete else 'dynamics'
+
     inp_size = config.rssm.deter 
     if config.rssm.discrete: 
       inp_size += config.rssm.stoch * config.rssm.discrete

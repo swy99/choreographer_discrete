@@ -8,13 +8,13 @@ loss_scales: {kl: 1.0, reward: 1.0, discount: 1.0, proprio: 1.0}
 model_opt: {opt: adam, lr: 3e-4, eps: 1e-5, clip: 100, wd: 1e-6}
 replay: {capacity: 2e6, ongoing: False, minlen: 50, maxlen: 50, prioritize_ends: False}
 
-actor: {layers: 4, units: 400, norm: none, dist: trunc_normal, min_std: 0.1 }  
+actor: {layers: 4, units: 400, norm: none, dist: auto, min_std: 0.1 }  
 critic: {layers: 4, units: 400, norm: none, dist: mse}  
 actor_opt: {opt: adam, lr: 8e-5, eps: 1e-5, clip: 100, wd: 1e-6}
 critic_opt: {opt: adam, lr: 8e-5, eps: 1e-5, clip: 100, wd: 1e-6}
 discount: 0.99
 discount_lambda: 0.95
-actor_grad: dynamics
+actor_grad: auto
 slow_target: True
 slow_target_update: 100
 slow_target_fraction: 1
